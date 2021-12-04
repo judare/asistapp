@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Proyecto Laboratorio - Control asistencia</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet">
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+
+<div id="app">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <img src="./assets/logo.jpeg" alt="" style="width: 300px;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item active text-center list-li">
+          <span class=""><i class="material-icons">face</i></span>
+          <a class="nav-link" href="index.html">Usuarios <span class="sr-only">Usuarios</span></a>
+        </li>
+        <li class="nav-item text-center list-li">
+          <span class=""><i class="material-icons">assessment</i></span>
+          <a class="nav-link" href="reports.html">Reportes <span class="sr-only">Reportes</span></a>
+        </li>
+        <li class="nav-item float-right text-center list-li">
+          <span class=""><i class="material-icons">arrow_forward
+          </i></span>
+          <a class="nav-link" href="login.html">Cerrar sesión</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  
+  <div class="container text-center">
+    <h1 class="text-left mt-5">Usuarios</h1>
+
+    <div class="table-padded box-card mt-5">
+      <table class="table mt-5 table-hover table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Celular</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in list" :key="item.id">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.cellphone}}</td>
+          </tr>
+          <tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+new Vue({
+  el: '#app',
+  data() {
+    return {
+      list: []
+    };
+  },
+  mounted() {
+    this.getData();
+    setInterval(() => {
+      this.getData();
+    }, 2000)
+  },
+  methods: {
+    getData() {
+      this.postData("assistances/users", { filters: {} }).then(list => {
+        this.list = list;
+      })
+    },
+    async postData(url = '', body = {}) {
+      const BASE_URL = "http://192.168.0.5:8100/api/v1/";
+      let data = body;
+      console.log("[REQUEST]", data);
+
+      let config = {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer', 
+        body: JSON.stringify(data)
+      };
+
+    
+      const response = await fetch(BASE_URL + url, config);
+      const res = await response.json();
+
+      if (res.errorCode) {
+        throw res;
+      }
+      console.log("[RESPONSE]", res);
+      return res;
+    }
+  }
+})  
+</script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+
+  :root {
+    --primaryColor: #2a37a7;
+  }
+  body {
+    background: #f1f4fa;
+  }
+  h1 {
+    color: var(--primaryColor);
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .navbar {
+    background: #fff;
+  }
+  .list-li {
+    background: var(--primaryColor);
+    padding: 10px;
+    color: #fff;
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+  }
+  a.nav-link {
+    color: #fff!important;
+    font-weight: bold;
+  }
+  .box-card {
+    background: #fff;
+    box-shadow: 0 6px 10px 0 rgba(128,98,96,.16);
+    border-radius: 20px;
+  }
+  .btn-primary {
+    border-radius: 20px;
+    width: 200px;
+    background: var(--primaryColor);
+    border-color: var(--primaryColor);
+  }
+  .table-padded {
+    overflow-x: scroll;
+    width: 100%;
+ }
+  .table-padded table {
+    border-collapse: separate;
+    border-spacing: 0 7px;
+    width: 100%;
+ }
+  .table-padded table thead tr th {
+    border: none;
+    font-size: 0.81rem;
+    color: rgba(90, 99, 126, 0.49);
+    letter-spacing: 1px;
+    padding: 0.3rem 1.1rem;
+ }
+  .table-padded table tbody tr {
+    border-radius: 4px;
+    -webkit-transition: all 0.1s ease;
+    transition: all 0.1s ease;
+ }
+  .table-padded table tbody tr.inactive {
+    opacity: 0.6;
+    transition: 0.3s;
+    filter: grayscale(1);
+ }
+  .table-padded table tbody tr.inactive:hover {
+    opacity: 1;
+    filter: grayscale(0);
+ }
+  .table-padded table tbody tr td {
+    padding: 0.9rem 1.1rem;
+    border: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.03);
+ }
+  .table-padded table tbody tr td:first-child {
+    border-radius: 4px 0px 0px 4px;
+ }
+  
