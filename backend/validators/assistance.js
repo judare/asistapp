@@ -4,7 +4,11 @@ export default function(app, db) {
 
     list: [
     ],
+    
     users: [
+    ],
+
+    report: [
     ]
   };
 }

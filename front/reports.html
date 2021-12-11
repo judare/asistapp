@@ -38,6 +38,7 @@
       </ul>
     </div>
   </nav>
+
   
   
   <div class="container text-center">
@@ -77,6 +78,8 @@
             <th>Hora de entrada</th>
             <th>Hora de salida</th>
             <th>Horas de permanencia</th>
+            <th>Llegada tarde</th>
+            <th>Horas extra</th>
           </tr>
         </thead>
         <tbody>
@@ -86,6 +89,40 @@
             <td>{{item.name}}</td>
             <td>{{item.timeStart}}</td>
             <td>{{item.timeEnd}}</td>
+            <td>{{item.hours}}</td>
+            <td>{{item.late ? "SI" : ""}}</td>
+            <td>{{item.extra ? "SI" : ""}}</td>
+          </tr>
+          <tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+
+
+
+
+    <div class="table-padded box-card my-5">
+      <table class="table mt-5 table-hover table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Primer ingreso</th>
+            <th>Ultimo ingreso</th>
+            <th>Conteo</th>
+            <th>Horas laboradas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in report" :key="item.id">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.firstAt}}</td>
+            <td>{{item.lastAt}}</td>
+            <td>{{item.count}}</td>
             <td>{{item.hours}}</td>
           </tr>
           <tr>
@@ -103,11 +140,13 @@ new Vue({
   data() {
     return {
       list: [],
+      report: [],
       form: {}
     };
   },
   mounted() {
     this.getData();
+    this.getReport();
     setInterval(() => {
       this.getData();
     }, 2000)
@@ -118,8 +157,13 @@ new Vue({
         this.list = list;
       })
     },
+    getReport() {
+      this.postData("assistances/report", {}).then(report => {
+        this.report = report;
+      })
+    },
     async postData(url = '', body = {}) {
-      const BASE_URL = "http://192.168.0.5:8100/api/v1/";
+      const BASE_URL = "http://192.168.0.3:8100/api/v1/";
       let data = body;
       console.log("[REQUEST]", data);
 

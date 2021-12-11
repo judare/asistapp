@@ -3,6 +3,7 @@ import Sequelize from 'sequelize';
 // Models
 import User from './user.js';
 import Assistance from './assistance';
+import Parameter from './parameters';
 
 const Op = Sequelize.Op;
 
@@ -11,7 +12,8 @@ function Models() {
 
   this.models = {
     User,
-    Assistance
+    Assistance,
+    Parameter
   };
 
   this.sequelize = null;

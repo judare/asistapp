@@ -12,6 +12,8 @@ const Route = function(app, db, services) {
 
   router.post('/users', validate.users, controller.users);
 
+  router.post('/report', validate.report, controller.report);
+
   return router;
 };
 
